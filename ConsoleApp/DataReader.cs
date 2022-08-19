@@ -23,20 +23,33 @@
                 var line = streamReader.ReadLine();
                 importedLines.Add(line);
             }
+            Console.WriteLine($"importedLines max lines: {importedLines.Count}");
 
-            for (int i = 0; i <= importedLines.Count; i++)
+            for (int i = 0; i < importedLines.Count; i++)
             {
                 var importedLine = importedLines[i];
                 var values = importedLine.Split(';');
                 var importedObject = new ImportedObject();
-                importedObject.Type = values[0];
-                importedObject.Name = values[1];
-                importedObject.Schema = values[2];
-                importedObject.ParentName = values[3];
-                importedObject.ParentType = values[4];
-                importedObject.DataType = values[5];
-                importedObject.IsNullable = values[6];
-                ((List<ImportedObject>)ImportedObjects).Add(importedObject);
+
+                Console.WriteLine($"Line index: {i}");
+
+                if (values != null)
+                {
+                    importedObject.Type = values[0];
+                    if (values.Length > 1)
+                        importedObject.Name = values[1];
+                    if (values.Length > 2)
+                        importedObject.Schema = values[2];
+                    if (values.Length > 3)
+                        importedObject.ParentName = values[3];
+                    if (values.Length > 4)
+                        importedObject.ParentType = values[4];
+                    if (values.Length > 5)
+                        importedObject.DataType = values[5];
+                    if (values.Length > 6)
+                        importedObject.IsNullable = values[6];
+                    ((List<ImportedObject>)ImportedObjects).Add(importedObject);
+                }
             }
 
             // clear and correct imported data
